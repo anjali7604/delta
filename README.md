@@ -14,3 +14,5 @@ img.php shows rollno inside database and provides link to displayits profile pic
 
 now if uploads folder is not there it will not take d entry and the entry ismade only if the pic gets uploaded
 
+i have edited d reg.php fileplz use d new code
+
