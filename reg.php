@@ -1,6 +1,7 @@
-<!DOCTYPE html>
+
+	<!DOCTYPE html>
 <html>
-<body>
+<body onload="Captcha();">
 <style>
 form {
 text-transform:capitalize;
@@ -31,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     $nameErr="Name is required";
   } 
   else
-  {$name=$_POST['name']; 
+  {$name=mysqli_real_escape_string($conn,$_POST['name']); 
 	  if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
   $nameErr = "Only letters and white space allowed"; 
   $name="";
@@ -42,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     $rollErr = "roll no. is required";
   }
 else
-{$roll=$_POST['roll'];
+{$roll=mysqli_real_escape_string($conn,$_POST['roll']);
 if (!preg_match('/^[0-9]*$/', $roll))
  {$roll="";
 $rollErr="enter only number format";}
@@ -52,19 +53,19 @@ $rollErr="enter only number format";}
   } 
   else
   {
-	$dept=$_POST['dept'];  
+	$dept=mysqli_real_escape_string($conn,$_POST['dept']);  
   }
    if (empty($_POST["year"])) {
     $yearErr = "year of study is required";
    }
    
  else
-	 $year=$_POST['year'];
+	 $year=mysqli_real_escape_string($conn,$_POST['year']);
    if (empty($_POST["mail"])) {
     $mailErr = "e-mail is required";
   } 
   else 
-  {$mail=$_POST['mail'];
+  {$mail=mysqli_real_escape_string($conn,$_POST['mail']);
 if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
   $mailErr = "Invalid email format";
   $mail="";  
@@ -74,7 +75,7 @@ if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
     $passErr = "password is required";
   } 
   else
-	$pass=$_POST['pass'];
+	$pass=mysqli_real_escape_string($conn,$_POST['pass']);
 
 
 
@@ -135,7 +136,22 @@ if ($uploadOk == 0) {
 
 
 if($name!="" && $name!="" && $roll!="" && $year!="" && $dept!="" && $mail!="" && $pass!="" && $name!="" && $exitcode==1)
-
+{
+	
+	move_uploaded_file($_FILES["img"]["tmp_name"], $target_file);
+	
+	
+	if (file_exists($target_file)) {
+     $uploadOk = 1;
+}
+    else {
+		$uploadOk = 0;
+	
+		echo "<script type='text/javascript'>confirm('file already exists or no uploads folder exists');</script>";
+	}	
+	
+	
+}
 	
 if($name!="" && $name!="" && $roll!="" && $year!="" && $dept!="" && $mail!="" && $pass!="" && $name!="" && $uploadOk == 1 && $exitcode==1)
 {
@@ -168,7 +184,7 @@ else{
 $encpass=sha1($pass);
 $query="insert into reg(roll,name,dept,year,mail,pass,id,location) values('$roll','$name','$dept','$year','$mail','$encpass','$code',' $target_file')";
 mysqli_query($conn,$query);
-move_uploaded_file($_FILES["img"]["tmp_name"], $target_file);}
+}
 
 else {
 echo "<script type='text/javascript'>alert('sorry,not registered!!!');</script>";}
@@ -214,7 +230,9 @@ Password<input type="password" id="visible" name="pass" required>
 PROFILE PICTURE   <input type="file" name="img" id="img" required><br><br>
 <input type="submit" ><br><br>
 <p id="demo"></p>
-</form>
+
+
+
 
 
 
@@ -231,7 +249,44 @@ function check(obj)
 else
 {  document.getElementById('visible').type = 'password';}
 }
+
+
+
+
+
+
+                 function Captcha(){
+                     var alpha = new Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+                     var i;
+                     for (i=0;i<6;i++){
+                       var a = alpha[Math.floor(Math.random() * alpha.length)];
+                       var b = alpha[Math.floor(Math.random() * alpha.length)];
+                       var c = alpha[Math.floor(Math.random() * alpha.length)];
+                       var d = alpha[Math.floor(Math.random() * alpha.length)];
+                       var e = alpha[Math.floor(Math.random() * alpha.length)];
+                       var f = alpha[Math.floor(Math.random() * alpha.length)];
+                       var g = alpha[Math.floor(Math.random() * alpha.length)];
+                      }
+                    var code = a + ' ' + b + ' ' + ' ' + c + ' ' + d + ' ' + e + ' '+ f + ' ' + g;
+                    document.getElementById("mainCaptcha").value = code
+                  }
+                  function ValidCaptcha(){
+                      var string1 = removeSpaces(document.getElementById('mainCaptcha').value);
+                      var string2 = removeSpaces(document.getElementById('txtInput').value);
+                      if (string1 == string2){
+                        return true;
+                      }
+                      else{        
+                        return false;
+                      }
+                  }
+                  function removeSpaces(string){
+                    return string.split(' ').join('');
+                  }
+             
 </script>
 
 </body>
 </html>
+
+
