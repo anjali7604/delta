@@ -9,3 +9,8 @@ create database named delta
 reg.php is a registration form
 
 image.php is to access profile pictures as image.php?rn=110114013
+
+img.php shows rollno inside database and provides link to displayits profile pic
+
+now if uploads folder is not there it will not take d entry and the entry ismade only if the pic gets uploaded
+
