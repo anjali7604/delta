@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html>
 <body>
@@ -19,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET")
 {
 	
 	$image=$_GET["rn"];
-	
+	$x=0;
 	
 	$iquery="SELECT * FROM reg;";
  $iresult=mysqli_query($conn,$iquery);
@@ -28,10 +29,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET")
 		{
 			
 		     if($row['roll']==$image)
-	         echo "<img src=\"" . $row['location'] ."\" >";  
+			 { echo "<img src=\"" . $row['location'] ."\" >";
+			 $x++;
+			 }
+    		 
 		}
-	
-	
+	if($x==0)
+	echo "<h1>This rollno. doesnot exist in database<h1>";
 	mysqli_close($conn);
 	
 }
