@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET")
 		while($row=mysqli_fetch_array($iresult))
 		{
 			
-		     echo "<br><a href=\"".$row['location']."\">".$row['roll']."</a><br>";
+		     echo "<br><a href=\" image.php?rn=".$row['roll']."\">"."roll no.=".$row['roll']."</a><br>";
 		}
 
 	
