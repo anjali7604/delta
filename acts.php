@@ -22,6 +22,49 @@ font-size:60px;
 margin-top:80px;
 
 }
+
+a{
+    width: 150px;
+    height: 50px;
+    
+    -webkit-transition: width 2s, height 4s; /* For Safari 3.1 to 6.0 */
+    transition: width 2s, height 4s;
+}
+
+a:hover {
+    width: 170px;
+    height: 70px;
+	transform: rotate(20deg);
+}
+
+
+#anim {
+    width: 1000px;
+    height: 30px;
+    background-color: red;
+	padding:10px;
+    position: relative;
+    -webkit-animation-name: example; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 4s; /* Chrome, Safari, Opera */
+    -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+    animation-name: example;
+    animation-duration: 15s;
+    animation-iteration-count: infinite;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes example {
+    0%   {background-color:red; left:0px; top:0px;}
+    100%  {background-color:yellow; left:900px; top:0px;}
+    
+}
+
+/* Standard syntax */
+@keyframes example {
+    0%   {background-color:red; left:0px; top:0px;}
+    100%  {background-color:yellow; left:900px; top:0px;}
+    
+}
  </style>
  
  
@@ -46,6 +89,9 @@ margin-top:80px;
  
  <h1 id="header">FACTORY INSPECTION DEPARTMENT</h1><br><br><br><br><br><br><br><br><br><br><br>
  </div>
+ 
+ <div id="anim">welcome to inspection department.we are here to create tranperency to common man about the factories status whose products they are consuming </div>
+ 
  <div id="page">
  <ul class="nav navbar-nav">
  <li><a href="home.php">Home</a></li>
@@ -97,6 +143,7 @@ margin-top:80px;
 
 	  
 	  </div>
+	  <br><br><br><br> <br><img id="sideimg"src="flag.jpg">
   
 </body>
 </html>
